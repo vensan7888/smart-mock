@@ -94,7 +94,7 @@ Content-Type: application/json
 }
 ```
 
-### `POST <endpoint>`
+### `POST /service/<endpoint>`
 
 Validates the request structure & data types of an endpoint against the configured contract.
 
