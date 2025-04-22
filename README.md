@@ -31,17 +31,57 @@ Content-Type: application/json
 **Request Body:**
 ```json
 {
-  "endpoint": "/api/login",
+  "endpoint": "login",
   "request": {
     "body": {
-      "username": "string",
-      "password": "string"
+      "username": "Sandeep",
+      "password": "smarkmock",
+      "age": 25
     }
   },
   "response": {
-    "status": 200,
     "body": {
       "token": "mocked-token-123"
+    }
+  }
+}
+```
+
+**Contract flat sturcture mapped with data types in Response:**
+```json
+{
+    "response": {
+        "body.username": "String",
+        "body.password": "String",
+        "body.age": "Integer"
+    }
+}
+```
+
+### `POST /deployScenario`
+
+Deploys a response mapped with expected request values of an endpoint.
+
+**URL:**  
+`http://localhost:8080/deployScenario`
+
+**Request Headers:**
+```http
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "endpoint": "login",
+  "request": {
+    "body": {
+      "age": 20,
+    }
+  },
+  "response": {
+    "body": {
+      "token": "mocked-token-1234"
     }
   }
 }
@@ -50,8 +90,106 @@ Content-Type: application/json
 **Success Response:**
 ```json
 {
-  "status": "success",
-  "message": "Contract deployed successfully"
+  "response": "'Success' Scenario deployed for testing"
+}
+```
+
+### `POST <endpoint>`
+
+Validates the request structure & data types of an endpoint against the configured contract.
+
+Returns the response mapped to the expected request values if a matching scenario is configured. 
+Otherwise, it falls back to the default response defined for the endpoint's contract.
+
+**URL:**  
+`http://localhost:8080/service/login`
+
+**Request Headers:**
+```http
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+    "body": {
+      "age": 20,
+    }
+}
+```
+
+**Success Response:**
+```json
+{
+    "body": {
+      "token": "mocked-token-1234"
+    }
+}
+```
+
+### `GET /fetchContracts or /fetchContracts/<endpoint>`
+
+Fetches all contracts or contract of an endpoint.
+
+**URL:**  
+`http://localhost:8080/fetchContracts` or `http://localhost:8080/fetchContracts/login`
+
+**Request Headers:**
+```http
+Content-Type: application/json
+```
+
+**Returns the contracts deployed**
+```json
+{
+    "contracts": [
+        {
+            "request": {
+                "body.username": "String",
+                "body.password": "String",
+                "body.age": "Integer"
+            },
+            "endpoint": "setPreferences",
+            "response": {
+                "body": {
+                    "token": "mocked-token-123"
+                }
+            }
+        }
+    ]
+}
+```
+
+### `GET /fetchScenarios or /fetchScenarios/<endpoint>`
+
+Fetches all scenarios or scenarios of a given endpoint.
+
+**URL:**  
+`http://localhost:8080/fetchScenarios` or `http://localhost:8080/fetchScenarios/login`
+
+**Request Headers:**
+```http
+Content-Type: application/json
+```
+
+**Returns the scenarios deployed**
+```json
+{
+    "scenarios": [
+        {
+            "request": {
+                "body": {
+                    "age": 20,
+                }
+            },
+            "endpoint": "login",
+            "response": {
+                "body": {
+                    "token": "mocked-token-1234"
+                }
+            }
+        }
+    ]
 }
 ```
 
@@ -70,7 +208,7 @@ The mock server will start at:
 
 ---
 
-## 📁 Directory Structure (Optional Setup)
+## 📁 Directory Structure
 
 ```
 smart-mock/
@@ -98,6 +236,5 @@ This project is licensed under the **MIT License**.
 
 Questions, feedback, or cool ideas?  
 Open an issue or reach out at [venu.medidi@gmail.com].
-```
 
 ---
