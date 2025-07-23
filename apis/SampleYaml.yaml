@@ -30,54 +30,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
-  /users:
-    post:
-      summary: Get all users
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-      responses:
-        '200':
-          description: List of users
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
-    get:
-      summary: Create a new user
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NewUser'
-      responses:
-        '201':
-          description: User created
-
-  /users/{id}:
-    get:
-      summary: Get a user by ID
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: A single user
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '404':
-          description: User not found
 
 components:
   schemas:
@@ -92,21 +44,6 @@ components:
           type: number
         male:
           type: boolean
-    Endpoint1:
-      type: object
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        email:
-          type: string
-        residant:
-          type: boolean
-        salary:
-          type: integer
-        salary2:
-          type: number
     User:
       type: object
       properties:
@@ -140,16 +77,3 @@ components:
                   type: string
                 state:
                   type: string
-
-    NewUser:
-      type: object
-      required:
-        - username
-        - email
-      properties:
-        username:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
