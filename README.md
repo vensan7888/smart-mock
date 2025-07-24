@@ -66,13 +66,18 @@ smartmock-2.0/
 
 ## 🚀 Getting Started
 
-### 1. Clone the repository:
+### 1. Install 'yq'
+``` sh
+`brew install yq`
+```
+
+### 2. Clone the repository:
 ```sh
 git clone https://github.com/vensan7888/smart-mock.git
 cd smart-mock
 ```
 
-### 2. Set Up Jenkins Trigger
+### 3. Set Up Jenkins Trigger
 Integrate 
 `sh scripts/jenkinsDeployMock.sh https://your-smarmock-server` deploys only changed yaml files since last commit.
 `OR`
@@ -80,7 +85,7 @@ Integrate
 
 into your Jenkinsfile to auto-deploy updated contracts.
 
-### 2. Run on Remote repository Trigger
+### 4. Run on Remote repository Trigger
 ```sh
 `sh scripts/deployMockFromRepo.sh https://github.com/username/yourProject.git yourBranch https://your-smarmock-server` deploys only changed yaml files since last commit.
 ```
@@ -88,7 +93,7 @@ into your Jenkinsfile to auto-deploy updated contracts.
 `sh scripts/deployMockFromRepo.sh https://github.com/username/yourProject.git yourBranch https://your-smarmock-server` deploys all yaml files of remote repo, useful for first time integration with existing repository.
 ```
 
-### 3. Run Local Trigger
+### 5. Run Local Trigger
 `sh scripts/deployMockFromDirectory.sh /path/to/your/source/code https://your-smarmock-server` deploys all yaml files of directory, useful when the changes of backend are not yet merged.
 
 ---
