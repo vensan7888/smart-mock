@@ -1,6 +1,102 @@
-# 🚀 smart-mock  "Intelligent API Mocking Tool"
-smart-mock is an advanced, intelligent API mocking tool that simulates real backend behaviour. It supports data validation, dynamic flows, and conditional responses, making it easy to test your apps even before the backend is ready.
+# 🚀 smart-mock  "Smart API Mocking Tool"
+smart-mock is an advanced, smart API mocking tool that simulates real backend behaviour. It supports data validation, dynamic flows, and conditional responses, making it easy to test your apps even before the backend is ready.
 
+---
+
+# SmartMock 2.0
+
+## ✨ What's New in 2.0
+
+### ✅ OpenAPI Specification Support
+SmartMock supported scripts now reads from **OpenAPI YAML files** to auto-generate mock endpoints and response structures — enabling **contract-first development**.
+
+---
+
+### ✅ Automated Mock Deployment Scripts
+
+SmartMock 2.0 supports **three flexible ways to trigger contract updates to your local or remote mock server**:
+
+#### 🧩 1. Jenkins Pipeline Script
+- Integrate directly with your CI/CD pipeline.
+- Automatically deploy updated OpenAPI contracts whenever changes are committed to the repository.
+
+#### 💻 2. Local Trigger Using Remote Repo
+- Trigger SmartMock from your machine by **pointing to a GitHub/GitLab repo**.
+- Useful for testing contract changes before deployment.
+
+#### 📁 3. Local Trigger Using Local Directory
+- Trigger SmartMock by pointing to a **local source code directory**.
+- Fastest way to test contract updates in real-time while developing.
+
+---
+
+## 🧰 Response Configuration at Contract Level
+- Define response structure **alongside the contract**.
+- No need to hard-code anything — configuration-driven.
+
+---
+
+## ✅ Validations on Response Structure
+- During scenario-based testing, SmartMock **validates the structure of incoming request & response**.
+- Helps detect contract mismatches early in the development cycle.
+
+---
+
+## 🧪 Use Cases
+
+- Frontend testing without backend dependency.
+- API design-first workflows.
+- CI/CD-driven contract testing.
+- Local development simulations for microservices.
+
+---
+
+## 📂 Folder Structure
+
+```
+smartmock-2.0/
+├── smart-mock.jar
+├── scripts/
+│   ├── jenkinsDeployMock.sh
+│   ├── deployMockFromRepo.sh
+│   └── deployMockFromDirectory.sh
+└── README.md
+```
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository:
+```sh
+git clone https://github.com/vensan7888/smart-mock.git
+cd smart-mock
+```
+
+### 2. Set Up Jenkins Trigger
+Integrate 
+`sh scripts/jenkinsDeployMock.sh https://your-smarmock-server` deploys only changed yaml files since last commit.
+`OR`
+`sh scripts/jenkinsDeployMock.sh https://your-smarmock-server y` deploys all yaml files of repo, useful for first time integration with existing repository.
+
+into your Jenkinsfile to auto-deploy updated contracts.
+
+### 2. Run on Remote repository Trigger
+```sh
+`sh scripts/deployMockFromRepo.sh https://github.com/username/yourProject.git yourBranch https://your-smarmock-server` deploys only changed yaml files since last commit.
+```
+```sh
+`sh scripts/deployMockFromRepo.sh https://github.com/username/yourProject.git yourBranch https://your-smarmock-server` deploys all yaml files of remote repo, useful for first time integration with existing repository.
+```
+
+### 3. Run Local Trigger
+`sh scripts/deployMockFromDirectory.sh /path/to/your/source/code https://your-smarmock-server` deploys all yaml files of directory, useful when the changes of backend are not yet merged.
+
+---
+
+
+---
+
+# SmartMock 1.0
 ---
 
 ## 📦 Features
@@ -10,7 +106,6 @@ smart-mock is an advanced, intelligent API mocking tool that simulates real back
 - 🧪 Support for multiple flows: success, error, edge cases
 - 🛡️ Validates incoming request bodies
 - 🔌 Easy RESTful API to deploy and manage mocks
-- 🧾 OpenAPI support (coming soon!)
 
 ---
 
@@ -219,16 +314,15 @@ smart-mock/
 
 ---
 
-## 👥 Contributing
+## 📣 Contributing
 
-I’d love your help to improve smart-mock!  
-Feel free to report issues or suggest features.
+We welcome PRs, ideas, and feedback! Let’s make API mocking smarter together.
 
 ---
 
-## 📜 License
+## 📃 License
 
-This project is licensed under the **MIT License**.
+MIT License – Use freely and contribute to grow the ecosystem.
 
 ---
 
