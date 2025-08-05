@@ -14,17 +14,13 @@ SmartMock supported scripts now reads from **OpenAPI YAML files** to auto-genera
 
 ### ✅ Automated Mock Deployment Scripts
 
-SmartMock 2.0 supports **three flexible ways to trigger contract updates to your local or remote mock server**:
+SmartMock 2.0 supports **flexible way to trigger contract updates to your local or remote mock server**:
 
 #### 🧩 1. Jenkins Pipeline Script
 - Integrate directly with your CI/CD pipeline.
 - Automatically deploy updated OpenAPI contracts whenever changes are committed to the repository.
 
-#### 💻 2. Local Trigger Using Remote Repo
-- Trigger SmartMock from your machine by **pointing to a GitHub/GitLab repo**.
-- Useful for testing contract changes before deployment.
-
-#### 📁 3. Local Trigger Using Local Directory
+#### 📁 2. Local Trigger Using Local Directory
 - Trigger SmartMock by pointing to a **local source code directory**.
 - Fastest way to test contract updates in real-time while developing.
 
@@ -58,8 +54,7 @@ smartmock-2.0/
 ├── smart-mock.jar
 ├── scripts/
 │   ├── jenkinsDeployMock.sh
-│   ├── deployMockFromRepo.sh
-│   └── deployMockFromDirectory.sh
+│   └── common
 └── README.md
 ```
 ---
@@ -77,24 +72,21 @@ git clone https://github.com/vensan7888/smart-mock.git
 cd smart-mock
 ```
 
-### 3. Set Up Jenkins Trigger
+### 3. Setup scripts:
+```sh
+copy 'scripts' folder located in 'smart-mock' to your repo root directory.
+```
+
+### 4. Set Up Jenkins Trigger
 Integrate 
-`sh scripts/jenkinsDeployMock.sh https://your-smarmock-server` deploys only changed yaml files since last commit.
+`sh scripts/jenkinsDeployMock.sh https://your-smarmock-server` deploys 'only changed yaml' files since last commit.
 `OR`
-`sh scripts/jenkinsDeployMock.sh https://your-smarmock-server y` deploys all yaml files of repo, useful for first time integration with existing repository.
+`sh scripts/jenkinsDeployMock.sh https://your-smarmock-server y` deploys 'all yaml files' of repo, useful for first time integration with existing repository.
 
 into your Jenkinsfile to auto-deploy updated contracts.
 
-### 4. Run on Remote repository Trigger
-```sh
-`sh scripts/deployMockFromRepo.sh https://github.com/username/yourProject.git yourBranch https://your-smarmock-server` deploys only changed yaml files since last commit.
-```
-```sh
-`sh scripts/deployMockFromRepo.sh https://github.com/username/yourProject.git yourBranch https://your-smarmock-server` deploys all yaml files of remote repo, useful for first time integration with existing repository.
-```
-
-### 5. Run Local Trigger
-`sh scripts/deployMockFromDirectory.sh /path/to/your/source/code https://your-smarmock-server` deploys all yaml files of directory, useful when the changes of backend are not yet merged.
+### 5. Run Local Trigger  
+Use same commands as mentioned in `### 4` from your local repo root directory. 
 
 ---
 

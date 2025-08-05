@@ -22,9 +22,13 @@ COMMON_PATH="$CURRENT_DIRECTORY/$SCRIPT_PATH/common"
 if [ "$SCAN_FULL_DIRECTORY" = "y" ] || [ "$SCAN_FULL_DIRECTORY" = "Y" ]; then
   YAML_FILE_PATHS=$(sh $COMMON_PATH/find_yaml_files_in_directory.sh $CURRENT_DIRECTORY)
   echo ""
-  echo "All Files in repo:"
+  echo "All YAML Files in repo:"
   echo ""
-  echo "$YAML_FILE_PATHS"
+  if [ -n "$VAR" ]; then
+      echo "$YAML_FILE_PATHS"
+  else
+    echo "****** No YAML file found in Repo to update '$MOCK_SYSTEM' ******"
+  fi
   echo ""
 else
   # Get latest commit hash
@@ -35,9 +39,13 @@ else
   | grep -E '\.ya?ml$')
   cd ..
   echo ""
-  echo "All Files in last commit:"
+  echo "All YAML Files in latest commit:"
   echo ""
-  echo "$YAML_FILE_PATHS"
+  if [ -n "$VAR" ]; then
+      echo "$YAML_FILE_PATHS"
+  else
+    echo "****** No YAML file found in latest commit to update '$MOCK_SYSTEM' ******"
+  fi
   echo ""
 fi
 
