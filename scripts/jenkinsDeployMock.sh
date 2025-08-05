@@ -51,7 +51,6 @@ fi
 
 counter=1
 echo "$YAML_FILE_PATHS" | while IFS= read -r path; do
-  #echo "$counter. $path"
   file=$path;
   if [ "$SCAN_FULL_DIRECTORY" = "y" ] || [ "$SCAN_FULL_DIRECTORY" = "Y" ]; then
     filePath=$file
