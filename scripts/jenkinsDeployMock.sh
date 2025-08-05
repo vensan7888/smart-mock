@@ -3,10 +3,10 @@
 # $1: Smart-mock server url, ex: 'http://localhost:8080'
 # Full Command:
 # 
-#   To Clone Repo & Scan all Yaml files to deploy contracts to mock server
+#   To Clone Repo & Scan all Yaml files to deploy contracts to mock server.
 #     ex: sh scripts/jenkinsDeployMock.sh http://localhost:8080 y
 #
-#   To Clone Repo & Scan all Yaml files to deploy contracts to mock server
+#   To Clone Repo & Scan Only Yaml files changed in latest commit to deploy contracts to mock server.
 #     ex: sh scripts/jenkinsDeployMock.sh http://localhost:8080
 
 MOCK_SERVER=$1
@@ -24,7 +24,7 @@ if [ "$SCAN_FULL_DIRECTORY" = "y" ] || [ "$SCAN_FULL_DIRECTORY" = "Y" ]; then
   echo ""
   echo "All YAML Files in repo:"
   echo ""
-  if [ -n "$VAR" ]; then
+  if [ -n "$YAML_FILE_PATHS" ]; then
       echo "$YAML_FILE_PATHS"
   else
     echo "****** No YAML file found in Repo to update '$MOCK_SYSTEM' ******"
@@ -41,8 +41,8 @@ else
   echo ""
   echo "All YAML Files in latest commit:"
   echo ""
-  if [ -n "$VAR" ]; then
-      echo "$YAML_FILE_PATHS"
+  if [ -n "$YAML_FILE_PATHS" ]; then
+    echo "$YAML_FILE_PATHS"
   else
     echo "****** No YAML file found in latest commit to update '$MOCK_SYSTEM' ******"
   fi
