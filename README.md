@@ -68,14 +68,15 @@ smartmock-2.0/
 
 ### 2. Clone the repository:
 ```sh
-git clone https://github.com/vensan7888/smart-mock.git
-cd smart-mock
+- git clone https://github.com/vensan7888/smart-mock.git
+- cd smart-mock
 ```
 
 ### 3. Setup scripts:
-```sh
-copy 'scripts' folder located in 'smart-mock' to your repo root directory.
-```
+
+- copy 'scripts' folder located in 'smart-mock' to your repo root directory.
+- make sure your directory has valid yaml files with schema '$ref'
+- smart-mock 2.0 support is limited to HttpStatus '200' & HttpMethod 'POST' in YAML files. In coming versions smart-mock will be enhanced with other HttpStatus & HttpMethods. 
 
 ### 4. Set Up Jenkins Trigger
 Integrate 
@@ -83,10 +84,10 @@ Integrate
 `OR`
 `sh scripts/jenkinsDeployMock.sh https://your-smarmock-server y` deploys 'all yaml files' of repo, useful for first time integration with existing repository.
 
-into your Jenkinsfile to auto-deploy updated contracts.
+- into your Jenkinsfile to auto-deploy updated contracts.
 
 ### 5. Run Local Trigger  
-Use same commands as mentioned in `### 4` from your local repo root directory. 
+- Use same commands as mentioned in `### 4` from your local repo root directory. 
 
 ---
 

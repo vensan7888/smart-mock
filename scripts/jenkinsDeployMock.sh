@@ -15,8 +15,8 @@ MOCK_SYSTEM="SMART-MOCK"
 
 CURRENT_DIRECTORY=$(pwd)
 dir=$(dirname "$0")"/"
-SCRIPT_PATH=$dir
-COMMON_PATH="$CURRENT_DIRECTORY/$SCRIPT_PATH/common"
+SCRIPT_PATH="$CURRENT_DIRECTORY/$dir"
+COMMON_PATH="$SCRIPT_PATH""common"
 
 # 2. Scan repo
 if [ "$SCAN_FULL_DIRECTORY" = "y" ] || [ "$SCAN_FULL_DIRECTORY" = "Y" ]; then
@@ -50,7 +50,7 @@ else
 fi
 
 counter=1
-echo "$YAML_FILE_PATHS" | while IFS= read -r path; do
+while IFS= read -r path; do
   file=$path;
   if [ "$SCAN_FULL_DIRECTORY" = "y" ] || [ "$SCAN_FULL_DIRECTORY" = "Y" ]; then
     filePath=$file
@@ -64,13 +64,42 @@ echo "$YAML_FILE_PATHS" | while IFS= read -r path; do
     echo ""
     # Return status of all endpoints in a given yaml file.
     status=$(sh "$COMMON_PATH"/yamlParser.sh $filePath $MOCK_SERVER)
+    
+    read -r hostStatusCode _ <<< "$status"
+    if [ -z "$status" ] || [ "$hostStatusCode" = "<400>" ]; then
+      matches=$(echo "$status" | grep -o '<[^>]*>')
+      # *** ERROR ***
+      # Extract JSON and host response fail Jenkins job incase of status code '400'
+      response_status=$(echo "$matches" | sed -n '1p' | sed 's/[<>]//g')
+      request_data=$(echo "$matches" | sed -n '2p' | sed 's/[<>]//g')
+      response_data=$(echo "$matches" | sed -n '3p' | sed 's/[<>]//g')
+      echo ""
+      echo "🔹 Tried to deploy: $request_data"
+      echo ""
+      echo "🔹 Received: $response_data"
+      echo ""
+      echo "Failed to deploy!!!"
+      echo ""
+      exit 1
+    fi
+
     echo ""
     echo "Status: $status"
     echo ""
+
+    if ! echo "$status" | grep -q "requestStructure"; then
+      # *** ERROR ***
+      # In case if smart-mock responds with error then fail the jenkins job!
+      echo "Failed to deploy!!!"
+      echo ""
+      exit 1
+    fi
+
   fi
   counter=$((counter + 1))
-done
+done <<EOF
+$YAML_FILE_PATHS
+EOF
 
-exit 0
 
 
